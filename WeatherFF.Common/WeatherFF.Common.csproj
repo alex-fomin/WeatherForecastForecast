@@ -1,5 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netstandard1.4</TargetFramework>
+        <TargetFramework>netcoreapp1.1</TargetFramework>
     </PropertyGroup>
+    <ItemGroup>
+        <Folder Include="Store"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MongoDB.Driver">
+            <Version>2.4.3</Version>
+        </PackageReference>
+    </ItemGroup>
 </Project>

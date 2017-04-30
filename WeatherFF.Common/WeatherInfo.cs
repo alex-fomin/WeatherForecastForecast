@@ -5,29 +5,39 @@ namespace WeatherFF.Common
     public class WeatherInfo
     {
         public string Provider { get; set; }
+
         public string City { get; set; }
+
 
         public DateTime Timestamp { get; set; }
         public DateTime ForecastTimestamp { get; set; }
 
-        public int TemperatureHigh { get; set; }
-        public int TemperatureLow { get; set; }
+        public double TemperatureHigh { get; set; }
+        public double TemperatureLow { get; set; }
 
         public int Humidity { get; set; }
-        public int Pressure { get; set; }
+        public double Pressure { get; set; }
 
-        public int WindSpeed { get; set; }
+        public double WindSpeed { get; set; }
         public WindDirection WindDirection { get; set; }
 
         public SkyCondition Sky { get; set; }
 
-        public int RainPer3Hour { get; set; }
-        public int SnowPer3Hour { get; set; }
+        public double? Precipitation { get; set; }
+        public PercipitationType PercipitationType { get; set; }
+    }
+
+    public enum PercipitationType
+    {
+        None = 0,
+        Rain,
+        Snow
     }
 
     public enum SkyCondition
     {
-        ClearSky = 0,
+        Unknown = 0,
+        ClearSky,
         FewClouds,
         ScatteredClouds,
         BrokenClouds,

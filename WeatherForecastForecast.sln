@@ -11,6 +11,11 @@ Project("{1B9ABBDB-71C2-4348-A452-ECBACA7C48FB}") = "WeatherFF.Web", "WeatherFF.
 EndProject
 Project("{BDB6251D-A061-41C4-A205-FA378D4E1D9F}") = "WeatherFF.Tests", "WeatherFF.Tests\WeatherFF.Tests.csproj", "{8A5E2CB6-F4DB-47E8-9E9D-34A94FAC63BB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{97309A39-A14B-4B94-8831-E98A7C660BE7}"
+ProjectSection(SolutionItems) = preProject
+	examples\openWeatherMap.json = examples\openWeatherMap.json
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
