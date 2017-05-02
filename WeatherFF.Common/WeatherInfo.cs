@@ -23,7 +23,7 @@ namespace WeatherFF.Common
 
         public SkyCondition Sky { get; set; }
 
-        public double? Precipitation { get; set; }
+        public double? Precipitation3Hours { get; set; }
         public PercipitationType PercipitationType { get; set; }
     }
 
@@ -45,6 +45,7 @@ namespace WeatherFF.Common
         Rain,
         Thunderstorm,
         Snow,
+        RainSnow,
         Mist
     }
 
@@ -53,5 +54,29 @@ namespace WeatherFF.Common
        NW, N, NE,
         W,    E,
        SW, S, SE
+    }
+
+    public static class WindDirectionExtension
+    {
+        public static WindDirection AngleToWindDirection(this double windDeg)
+        {
+            if (windDeg >= 360)
+                windDeg = windDeg - 360;
+            if (windDeg < 0)
+                windDeg += 360;
+
+            const double step = 360 / 8.0;
+            windDeg += step / 2;
+
+            if (windDeg < 1 * step) return WindDirection.N;
+            if (windDeg < 2 * step) return WindDirection.NE;
+            if (windDeg < 3 * step) return WindDirection.E;
+            if (windDeg < 4 * step) return WindDirection.SE;
+            if (windDeg < 5 * step) return WindDirection.S;
+            if (windDeg < 6 * step) return WindDirection.SW;
+            if (windDeg < 7 * step) return WindDirection.W;
+            if (windDeg < 8 * step) return WindDirection.NW;
+            return WindDirection.N;
+        }
     }
 }

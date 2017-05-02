@@ -1,7 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using Autofac;
+using Autofac.Builder;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WeatherFF.Common;
@@ -18,13 +19,9 @@ namespace WeatherFF.Loader
                 Converters = {new StringEnumConverter()}
             };
 
-            var builder = new ContainerBuilder();
+            var container = BuildContainer();
+            
 
-            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
-                .Where(x => x.IsAssignableTo<IWeatherProvider>())
-                .Named<IWeatherProvider>(x => x.Name.Replace("Provider", ""));
-
-            var container = builder.Build();
 
             var providerName = args.FirstOrDefault() ?? "OpenWeatherMap";
             var city = args.Skip(1).FirstOrDefault() ?? "Minsk, BY";
@@ -33,7 +30,26 @@ namespace WeatherFF.Loader
 
             var info = provider.GetWeatherForecastAsync(city).Result;
 
-            Console.WriteLine(JsonConvert.SerializeObject(info, Formatting.Indented));
+            var logger = container.Resolve<ILogger>();
+
+            logger.LogInformation(JsonConvert.SerializeObject(info, Formatting.Indented));
         }
+
+        private static IContainer BuildContainer()
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterModule(new LoggingModule(f => f.AddConsole().AddDebug()));
+
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
+                .Where(x => x.IsAssignableTo<IWeatherProvider>())
+                .Named<IWeatherProvider>(x => x.Name.Replace("Provider", ""));
+
+
+            var container = builder.Build();
+            return container;
+        }
+
+
     }
 }
