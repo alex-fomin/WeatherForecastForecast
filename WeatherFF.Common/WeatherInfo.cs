@@ -25,6 +25,8 @@ namespace WeatherFF.Common
 
         public double? Precipitation3Hours { get; set; }
         public PercipitationType PercipitationType { get; set; }
+
+        public string RawInfo { get; set; }
     }
 
     public enum PercipitationType
